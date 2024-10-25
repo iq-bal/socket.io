@@ -15,6 +15,20 @@
     <p>Hello World!!</p>
     <script>
       const socket = io();
+      //   socket.on("message", function (data) {
+      //     document.write(data);
+      //   });
+
+      //   catch a custom event in the client side
+      //   socket.on("myCustomEvent", function (data) {
+      //     document.write(data.description);
+      //   });
+
+      //   create a custom event in client side
+      socket.emit(
+        "myCustomEventFromClientSide",
+        "A custom event message from client side"
+      );
     </script>
   </body>
 </html>

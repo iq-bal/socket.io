@@ -15,7 +15,7 @@
     <p>Hello World!!</p>
     <script>
       // we have to pass the custom namespace that we made in here
-      const socket = io("/custom-namespace");
+      const socket = io();
       //   socket.on("message", function (data) {
       //     document.write(data);
       //   });
@@ -43,7 +43,13 @@
       //   document.write(data.message);
       // });
 
-      socket.on("testEvent", function (data) {
+      // socket.on("testEvent", function (data) {
+      //   document.body.innerHTML = " ";
+      //   document.write(data);
+      // });
+
+      // create a simple room 
+      socket.on("connectedRoom", function (data) {
         document.body.innerHTML = " ";
         document.write(data);
       });

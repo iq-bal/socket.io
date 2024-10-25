@@ -20,10 +20,14 @@ let users = 0;
 // '/' is default namespace
 // '/custom-namespace
 
-const cnsp = io.of("/custom-namespace");
+// const cnsp = io.of("/custom-namespace");
 // now wherever we used to use io before we are going to use cnsp now
 
-cnsp.on("connection", function (socket) {
+let roomno = 1;
+
+let full = 0;
+
+io.on("connection", function (socket) {
   console.log("A user connected");
 
   setTimeout(() => {
@@ -49,7 +53,20 @@ cnsp.on("connection", function (socket) {
   // already connected user will get this message
   // socket.broadcast.emit("newuserconnect", { message: `${users} connected` });
 
-  cnsp.emit("testEvent", "Test event call");
+  //custom name space
+  // cnsp.emit("testEvent", "Test event call");
+
+  socket.join(`room-${roomno}`);
+
+  io.sockets
+    .in(`room-${roomno}`)
+    .emit("connectedRoom", `you are connected to room no ${roomno}`);
+
+  full++;
+  if (full >= 2) {
+    full = 0;
+    roomno++;
+  }
 
   socket.on("disconnect", function () {
     console.log("A user disconnected");

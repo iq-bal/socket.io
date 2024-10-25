@@ -48,11 +48,26 @@
       //   document.write(data);
       // });
 
-      // create a simple room 
-      socket.on("connectedRoom", function (data) {
-        document.body.innerHTML = " ";
-        document.write(data);
-      });
+      // create a simple room
+      // socket.on("connectedRoom", function (data) {
+      //   document.body.innerHTML = " ";
+      //   document.write(data);
+      // });
+
+      // error handling
+      // socket.on("connect_failed", function () {
+      //   alert("sorry, connection failed");
+      // });
+
+      // socket.on("reconnecting", function () {
+      //   alert("you are reconnected");
+      // });
+
+      // socket.on("reconnect_failed", function () {
+      //   alert("sorry, connection failed");
+      // });
+
+      // socket.on("error", function () {});
     </script>
   </body>
 </html>

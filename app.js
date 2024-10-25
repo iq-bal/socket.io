@@ -46,7 +46,10 @@ io.on("connection", function (socket) {
   socket.on("disconnect", function () {
     console.log("A user disconnected");
     users--;
-    io.sockets.emit("broadcast", { message: `${users} connected` });
+    // io.sockets.emit("broadcast", { message: `${users} connected` });
+    socket.broadcast.emit("newuserconnect", {
+      message: `${users} connected`,
+    });
   });
 });
 

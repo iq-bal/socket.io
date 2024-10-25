@@ -14,7 +14,8 @@
   <body>
     <p>Hello World!!</p>
     <script>
-      const socket = io();
+      // we have to pass the custom namespace that we made in here
+      const socket = io("/custom-namespace");
       //   socket.on("message", function (data) {
       //     document.write(data);
       //   });
@@ -37,9 +38,14 @@
       // });
 
       // different message for new user and already connected user
-      socket.on("newuserconnect", function (data) {
+      // socket.on("newuserconnect", function (data) {
+      //   document.body.innerHTML = " ";
+      //   document.write(data.message);
+      // });
+
+      socket.on("testEvent", function (data) {
         document.body.innerHTML = " ";
-        document.write(data.message);
+        document.write(data);
       });
     </script>
   </body>

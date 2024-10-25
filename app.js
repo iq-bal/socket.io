@@ -17,7 +17,13 @@ app.get("/", (req, res) => {
 
 let users = 0;
 
-io.on("connection", function (socket) {
+// '/' is default namespace
+// '/custom-namespace
+
+const cnsp = io.of("/custom-namespace");
+// now wherever we used to use io before we are going to use cnsp now
+
+cnsp.on("connection", function (socket) {
   console.log("A user connected");
 
   setTimeout(() => {
@@ -39,17 +45,19 @@ io.on("connection", function (socket) {
 
   // different message for already connected user and new user
   // new user will get this message
-  socket.emit("newuserconnect", { message: "Hii welcome Dear" });
+  // socket.emit("newuserconnect", { message: "Hii welcome Dear" });
   // already connected user will get this message
-  socket.broadcast.emit("newuserconnect", { message: `${users} connected` });
+  // socket.broadcast.emit("newuserconnect", { message: `${users} connected` });
+
+  cnsp.emit("testEvent", "Test event call");
 
   socket.on("disconnect", function () {
     console.log("A user disconnected");
     users--;
     // io.sockets.emit("broadcast", { message: `${users} connected` });
-    socket.broadcast.emit("newuserconnect", {
-      message: `${users} connected`,
-    });
+    // socket.broadcast.emit("newuserconnect", {
+    //   message: `${users} connected`,
+    // });
   });
 });
 

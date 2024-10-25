@@ -15,6 +15,8 @@ app.get("/", (req, res) => {
   });
 });
 
+let users = 0;
+
 io.on("connection", function (socket) {
   console.log("A user connected");
 
@@ -27,12 +29,24 @@ io.on("connection", function (socket) {
   }, 3000);
 
   //   catch a custom event in the server side
-  socket.on("myCustomEventFromClientSide", function (data) {
-    console.log(data);
-  });
+  // socket.on("myCustomEventFromClientSide", function (data) {
+  //   console.log(data);
+  // });
+
+  users++;
+  // for global broadcast, message to all connected users
+  // io.sockets.emit("broadcast", { message: `${users} connected` });
+
+  // different message for already connected user and new user
+  // new user will get this message
+  socket.emit("newuserconnect", { message: "Hii welcome Dear" });
+  // already connected user will get this message
+  socket.broadcast.emit("newuserconnect", { message: `${users} connected` });
 
   socket.on("disconnect", function () {
     console.log("A user disconnected");
+    users--;
+    io.sockets.emit("broadcast", { message: `${users} connected` });
   });
 });
 

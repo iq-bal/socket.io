@@ -25,10 +25,22 @@
       //   });
 
       //   create a custom event in client side
-      socket.emit(
-        "myCustomEventFromClientSide",
-        "A custom event message from client side"
-      );
+      // socket.emit(
+      //   "myCustomEventFromClientSide",
+      //   "A custom event message from client side"
+      // );
+
+      // broadcast to all user
+      // socket.on("broadcast", function (data) {
+      //   document.body.innerHTML = " ";
+      //   document.write(data.message);
+      // });
+
+      // different message for new user and already connected user
+      socket.on("newuserconnect", function (data) {
+        document.body.innerHTML = " ";
+        document.write(data.message);
+      });
     </script>
   </body>
 </html>
